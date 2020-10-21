@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
+    // 'plugin:vue/essential', // vue基础校验
+    'plugin:vue/strongly-recommended', // 使用强烈推荐的vue语法
     '@vue/standard'
   ],
   parserOptions: {

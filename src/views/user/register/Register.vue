@@ -1,3 +1,3 @@
 <template>
-  <router-view />
+  <div>注册页</div>
 </template>
