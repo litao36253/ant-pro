@@ -11,5 +11,15 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    common: {
+      state: {
+        gloableLoading: false
+      },
+      mutations: {
+        changeGloableLoading (state, payload) {
+          state.gloableLoading = payload
+        }
+      }
+    }
   }
 })

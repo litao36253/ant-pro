@@ -79,7 +79,11 @@ export default {
   },
   methods: {
     async submit () {
-      this.$request('user/login', this.formModel)
+      this.$request('/auth/login', this.formModel, {
+        mask: true
+      }).then(res => {
+        console.log(res)
+      })
       // const validateResult = await this.$refs.form.validate().then(() => true).catch(() => false)
       // if (validateResult) {
       //   this.loading = true
