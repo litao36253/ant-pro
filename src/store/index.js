@@ -13,11 +13,11 @@ export default new Vuex.Store({
   modules: {
     common: {
       state: {
-        gloableLoading: false
+        globalLoading: false
       },
       mutations: {
-        changeGloableLoading (state, payload) {
-          state.gloableLoading = payload
+        changeGlobalLoading (state, payload) {
+          state.globalLoading = payload
         }
       }
     }
