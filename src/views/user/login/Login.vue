@@ -10,10 +10,10 @@
       <a-form-model-item
         has-feedback
         label="用户名"
-        prop="userName"
+        prop="username"
       >
         <a-input
-          v-model="formModel.userName"
+          v-model="formModel.username"
           placeholder="请输入用户名"
         >
           <a-icon
@@ -57,15 +57,17 @@
 </template>
 
 <script>
+import md5 from 'md5'
+
 export default {
   data () {
     return {
       formModel: {
-        userName: '',
+        username: '',
         password: ''
       },
       rules: {
-        userName: [
+        username: [
           { required: true, message: '请输入用户名', trigger: ['change', 'blur'] },
           { min: 3, max: 50, message: '用户名长度为 3 至 50 个字符', trigger: ['change', 'blur'] }
         ],
@@ -79,16 +81,27 @@ export default {
   },
   methods: {
     async submit () {
-      this.$request('/auth/login', this.formModel, {
-        mask: true
-      }).then(res => {
-        console.log(res)
-      })
-      // const validateResult = await this.$refs.form.validate().then(() => true).catch(() => false)
-      // if (validateResult) {
-      //   this.loading = true
-      //   this.$request('user/login', this.formModel)
-      // }
+      const validateResult = await this.$refs.form.validate().then(() => true).catch(() => false)
+      if (validateResult) {
+        this.loading = true
+        this.$request('/user/login', {
+          username: this.formModel.username,
+          password: md5(this.formModel.password)
+        }, {
+          mask: true
+        }).then(res => {
+          this.loginSuccess(res)
+        }).finally(() => {
+          this.loading = false
+        })
+      }
+    },
+    loginSuccess (res) {
+      this.$message.success('登录成功')
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('tokenExpired', res.tokenExpired)
+      const redirect = this.$route.query.redirect
+      this.$router.replace(redirect || '/')
     }
   }
 }

@@ -19,12 +19,12 @@ const routes = [
     component: { render: h => h('router-view') },
     children: [
       {
-        path: 'login',
+        path: '/user/login',
         name: 'user.login',
         component: () => import(/* webpackChunkName: "user.login" */ '../views/user/login/Login.vue')
       },
       {
-        path: 'register',
+        path: '/user/register',
         name: 'user.register',
         component: () => import(/* webpackChunkName: "user.register" */ '../views/user/register/Register.vue')
       }
@@ -41,7 +41,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "basicLayout" */ '../layouts/basicLayout/BasicLayout.vue'),
     children: [
       {
-        path: 'analysis',
+        path: '/dashboard/analysis',
         name: 'dashboard.analysis',
         meta: {
           title: '分析页'

@@ -12,7 +12,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(config => {
   config.url = config.baseUrl + config.url
-  console.log(config)
+  config.headers.common.Token = localStorage.getItem('token')
   config.mask && store.commit('changeGlobalLoading', true)
   return config
 }, error => {
@@ -23,7 +23,7 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
   if (response.status === 200 && response.data) {
     if (response.data.code === 0) {
-      return response.data.data
+      return response.data.body
     } else {
       message.error(response.data.message)
       return Promise.reject(response.data)

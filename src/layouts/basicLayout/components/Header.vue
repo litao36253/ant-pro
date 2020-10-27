@@ -7,6 +7,9 @@
     />
     <div class="header-content">
       头部内容待开发。。。
+      <a-button @click="logout">
+        退出登录
+      </a-button>
     </div>
   </div>
 </template>
@@ -17,6 +20,13 @@ export default {
     collapsed: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    logout () {
+      this.$request('/user/logout').then(res => {
+        console.log(res)
+      })
     }
   }
 }
