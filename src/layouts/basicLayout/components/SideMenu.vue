@@ -1,10 +1,11 @@
 <template>
   <a-menu
-    :default-selected-keys="['1']"
-    :default-open-keys="['sub1']"
+    :selected-keys="selectedKeys"
+    :open-keys.sync="openKeys"
     mode="inline"
     theme="dark"
     :inline-collapsed="collapsed"
+    @select="handleSelect"
   >
     <template v-for="item in menuData">
       <a-menu-item
@@ -41,7 +42,9 @@ export default {
   data () {
     return {
       list: [],
-      menuData: []
+      menuData: [],
+      selectedKeys: [],
+      openKeys: []
     }
   },
   created () {
@@ -61,6 +64,20 @@ export default {
         }
       })
       return menuData
+    },
+    handleSelect (item) {
+      item.keyPath.length && this.$router.push(item.keyPath[0])
+    }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler (to) {
+        const matched = to.matched
+        const openKeys = this.openKeys.concat(matched.map(item => item.path))
+        this.openKeys = [...new Set(openKeys)]
+        this.selectedKeys = [matched[matched.length - 1].path]
+      }
     }
   }
 }

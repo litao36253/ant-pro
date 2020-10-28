@@ -51,6 +51,34 @@ const routes = [
     ]
   },
   {
+    path: '/test',
+    name: 'test',
+    redirect: { name: 'dashboard.analysis' },
+    meta: {
+      icon: 'dashboard',
+      title: '仪表盘'
+    },
+    component: () => import(/* webpackChunkName: "basicLayout" */ '../layouts/basicLayout/BasicLayout.vue'),
+    children: [
+      {
+        path: '/test/analysis',
+        name: 'test.analysis',
+        meta: {
+          title: '分析页'
+        },
+        component: () => import(/* webpackChunkName: "dashboard.analysis" */ '../views/dashboard/analysis/Analysis.vue')
+      },
+      {
+        path: '/test/analysis2',
+        name: 'test.analysis',
+        meta: {
+          title: '分析页'
+        },
+        component: () => import(/* webpackChunkName: "dashboard.analysis" */ '../views/dashboard/analysis/Analysis.vue')
+      }
+    ]
+  },
+  {
     path: '/403',
     name: '403',
     hideInMenu: true,
