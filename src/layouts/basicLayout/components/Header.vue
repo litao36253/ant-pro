@@ -24,7 +24,9 @@ export default {
   },
   methods: {
     logout () {
-      this.$request('/user/logout').then(res => {
+      this.$request('/user/logout', undefined, {
+        errorTips: false
+      }).then(res => {
         console.log(res)
       })
     }
